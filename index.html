@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    // Skip step about a server, download Brackets and Phaser 3 from the Getting started using NPM and it'll work! 
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
 </head>
 <body>
 
@@ -12,10 +13,18 @@
         height: 675,
         scene: {
             preload: preload,
-            create: create
+            create: create,
+            update: update
         }
     };
 
+    var info;
+    var translate;
+    var camState = 0;
+    var micState = 0;
+    var shareState = 0;
+    
+        
     var game = new Phaser.Game(config);
 
     function preload ()
@@ -30,17 +39,93 @@
         this.load.image('cam-on', 'cam-on.png');
         this.load.image('share-off', 'Icons For Us.png');
         this.load.image('share-on', 'Icons For Us(1).png');
+        this.load.image('end', 'END.png');
     }
 
     function create ()
     {
+        // This is the background, we'll never be clicking/interacting directly with it, so it's just adding an image
         this.add.image(600, 337.5, 'bg');
-        this.add.image(1185, 15, 'close');
-        this.add.image(60, 630, 'mic-on');
-        this.add.image(200, 630, 'cam-on');
-        this.add.image(450, 630, 'share-on');
         
+        // These two are good to add if we have time, but they don't add much to the game
+        //A future feature could be "Close or End Meeting after X Seconds"
+        this.add.image(1185, 15, 'close');
+        this.add.image(820, 630, 'end');
+        
+        // Our Interactive elements that we should most likely try to implement tonight
+        var cam = this.add.image(200, 630, 'cam-off');
+        var mic = this.add.image(60, 630, 'mic-off');
+        var share = this.add.image(450, 630, 'share-off');
+        
+        cam.setInteractive();
+        mic.setInteractive();
+        share.setInteractive();
+        
+        cam.on('clicked', camHandler, this);
+        mic.on('clicked', micHandler, this);
+        share.on('clicked', shareHandler, this);
+        
+        // The below section is directly from a tutorial, and may need additional adaption. However while comment is being written it works
+        
+         //  If a Game Object is clicked on, this event is fired.
+        //  We can use it to emit the 'clicked' event on the game object itself.
+        
+        this.input.on('gameobjectup', function (pointer, gameObject)
+        {
+            gameObject.emit('clicked', gameObject);
+        }, this);
+
+        // This text should not be there by the end of development! It is for testing purposes
+        info = this.add.text(10, 10, '', { font: '48px Arial', fill: '#000000' });
     }
+        
+    function update ()
+    {
+        //This text should not be there by the end of development! It is for testing purposes
+        info.setText('Camera is: ' + camState);
+    }
+    
+    //Individual handlers per function
+    function camHandler (obj)
+    {
+        if (camState == 0) {
+            camState = 1;
+            translate = 'cam-on';
+        }
+        else {
+            camState = 0;
+            translate = 'cam-off';
+        }
+        obj.setTexture(translate);
+    }
+        
+    function micHandler (obj)
+    {
+        if (micState == 0) {
+            micState = 1;
+            translate = 'mic-on';
+        }
+        else {
+            micState = 0;
+            translate = 'mic-off';
+        }
+        obj.setTexture(translate);
+    }
+        
+    function shareHandler (obj)
+    {
+        if (shareState == 0) {
+            shareState = 1;
+            translate = 'share-on';
+        }
+        else {
+            shareState = 0;
+            translate = 'share-off';
+        }
+        obj.setTexture(translate);
+    }
+        
+    
     </script>
 
 </body>
