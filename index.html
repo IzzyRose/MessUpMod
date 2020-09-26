@@ -5,6 +5,10 @@
 </head>
 <body>
     <!--<input type="text" name="chatText" id="utext"> -->
+    
+    
+    
+    
     <script>
     var config = {
         type: Phaser.AUTO,
@@ -20,6 +24,7 @@
 
     var info;
     var translate;
+    var timer;
     var camState = 0;
     var micState = 0;
     var shareState = 0;
@@ -40,6 +45,16 @@
         this.load.image('share-off', 'Icons For Us.png');
         this.load.image('share-on', 'Icons For Us(1).png');
         this.load.image('end', 'END.png');
+        
+        this.load.image('lower-left', 'lower-left.png');
+        this.load.image('upper-left', 'upper-left.png');
+        this.load.image('upper-right', 'upper-right.png');
+        this.load.image('username-text', 'username-text.png');
+        this.load.image('take', 'take-what-action.png');
+        this.load.image('kick', 'kick.png');
+        this.load.image('mute', 'mute.png');
+        this.load.image('force-off-cam', 'off-cam.png');
+        this.load.image('over','GAME OVER.png')
         
           // Michael 
         this.load.image('person', 'empty-person.png');
@@ -66,7 +81,14 @@
         var share = this.add.image(450, 630, 'share-off');
         var text = this.add.text(920,590, 'Chat', { color: 'black', fontSize: '20px '});
         
-        
+        this.add.image(1055,54, 'username-text');
+        var upLeft = this.add.image(960,100, 'upper-left');
+        var loLeft = this.add.image(1055,100, 'lower-left');
+        var upRight = this.add.image(1150, 100, 'upper-right');
+        this.add.image(1055,170, 'take');
+        var forceMute = this.add.image(960,235, 'mute');
+        var forceOffCam = this.add.image(1055,235, 'force-off-cam');
+        var forceKick = this.add.image(1150,235, 'kick');
         
          // Michael 
         var per1 = this.add.image(200, 170, 'person');
@@ -77,18 +99,24 @@
         var per3Name = this.add.text(150, 500, 'BOSS', { font: '48px Arial', fill: '#000000' });
         var per4 = this.add.image(700, 170, 'person');
         var per4Name = this.add.text(650, 200, 'Paul', { font: '48px Arial', fill: '#000000' });
+        // end of what Michael did
         
-        
-        
+        var over = this.add.image(450,300, 'over');
+        over.setVisible(false);
         
         cam.setInteractive();
         mic.setInteractive();
         share.setInteractive();
+        upLeft.setInteractive();
+        upRight.setInteractive();
+        loLeft.setInteractive();
+        forceMute.setInteractive();
+        forceOffCam.setInteractive();
+        forceKick.setInteractive();
         
         cam.on('clicked', camHandler, this);
         mic.on('clicked', micHandler, this);
         share.on('clicked', shareHandler, this);
-        
         
         
         // The below section is directly from a tutorial, and may need additional adaption. However while comment is being written it works
@@ -102,13 +130,27 @@
         }, this);
 
         // This text should not be there by the end of development! It is for testing purposes
-        info = this.add.text(10, 10, '', { font: '48px Arial', fill: '#000000' });
+        info = this.add.text(5, 5, '', { font: '22px Arial', fill: '#FF0000' });
+        timer = this.time.addEvent({ delay: 10000, callback: gameOver, callbackScope: this });
     }
         
     function update ()
     {
-        //This text should not be there by the end of development! It is for testing purposes
-        info.setText('Camera is: ' + camState);
+        var val = 10000 - timer.getElapsed();
+        info.setText('Remaining Time Until Meeting Ends: ' + Math.floor(val));
+        if (timer.getElapsed() > 9999) {
+                timer.remove();
+                info.setText('MEETING OVER');
+            }
+        /*
+        if (timer.getElapsed() <= 9950) {
+          info.setText('Remaining Time Until Meeting Ends: ' + Math.floor(val));
+        }
+        else {
+            info.setText('MEETING OVER');
+          over.setVisible(true);
+        }
+        */
     }
     
     //Individual handlers per function
@@ -151,6 +193,10 @@
         obj.setTexture(translate);
     }
         
+    function gameOver ()
+    {
+        info.setText('MEETING OVER');
+    }
     
     </script>
 
