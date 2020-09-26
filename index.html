@@ -10,12 +10,6 @@
         type: Phaser.AUTO,
         width: 1200,
         height: 675,
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: { y: 200 }
-            }
-        },
         scene: {
             preload: preload,
             create: create
@@ -30,12 +24,21 @@
 
         this.load.image('bg', 'BackgroundPhaser.png');
         this.load.image('close', 'close.png');
+        this.load.image('mic-off', 'mic-off.png');
+        this.load.image('mic-on', 'mic-on.png');
+        this.load.image('cam-off', 'cam-off.png');
+        this.load.image('cam-on', 'cam-on.png');
+        this.load.image('share-off', 'Icons For Us.png');
+        this.load.image('share-on', 'Icons For Us(1).png');
     }
 
     function create ()
     {
         this.add.image(600, 337.5, 'bg');
         this.add.image(1185, 15, 'close');
+        this.add.image(60, 630, 'mic-on');
+        this.add.image(200, 630, 'cam-on');
+        this.add.image(450, 630, 'share-on');
         
     }
     </script>
