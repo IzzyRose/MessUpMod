@@ -4,12 +4,13 @@
     <script src="phaser.js"></script>
 </head>
 <body>
-    <input type="text" name="chatText" id="utext">
+    <!--<input type="text" name="chatText" id="utext"> -->
     <script>
     var config = {
         type: Phaser.AUTO,
         width: 1200,
         height: 675,
+        
         scene: {
             preload: preload,
             create: create,
@@ -36,7 +37,7 @@
         this.load.image('mic-on', 'mic-on.png');
         this.load.image('cam-off', 'cam-off.png');
         this.load.image('cam-on', 'cam-on.png');
-        this.load.image('share-off', 'Icons For Us.pngi');
+        this.load.image('share-off', 'Icons For Us.png');
         this.load.image('share-on', 'Icons For Us(1).png');
         this.load.image('end', 'END.png');
     }
