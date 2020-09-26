@@ -40,6 +40,9 @@
         this.load.image('share-off', 'Icons For Us.png');
         this.load.image('share-on', 'Icons For Us(1).png');
         this.load.image('end', 'END.png');
+        
+          // Michael 
+        this.load.image('person', 'empty-person.png');
     }
 
     function create ()
@@ -62,6 +65,20 @@
         var mic = this.add.image(60, 630, 'mic-off');
         var share = this.add.image(450, 630, 'share-off');
         var text = this.add.text(920,590, 'Chat', { color: 'black', fontSize: '20px '});
+        
+        
+        
+         // Michael 
+        var per1 = this.add.image(200, 170, 'person');
+        var per1Name = this.add.text(150, 200, 'Lucas', { font: '48px Arial', fill: '#000000' });
+        var per2 = this.add.image(700, 450, 'person');
+        var per2Name= this.add.text(650, 500, 'YOU', { font: '48px Arial', fill: '#000000' });
+        var per3 = this.add.image(200, 450, 'person');
+        var per3Name = this.add.text(150, 500, 'BOSS', { font: '48px Arial', fill: '#000000' });
+        var per4 = this.add.image(700, 170, 'person');
+        var per4Name = this.add.text(650, 200, 'Paul', { font: '48px Arial', fill: '#000000' });
+        
+        
         
         
         cam.setInteractive();
