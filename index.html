@@ -4,6 +4,7 @@
     <script src="phaser.js"></script>
 </head>
 <body>
+    <input type="text" name="chatText" id="utext">
     <script>
     var config = {
         type: Phaser.AUTO,
@@ -35,7 +36,7 @@
         this.load.image('mic-on', 'mic-on.png');
         this.load.image('cam-off', 'cam-off.png');
         this.load.image('cam-on', 'cam-on.png');
-        this.load.image('share-off', 'Icons For Us.png');
+        this.load.image('share-off', 'Icons For Us.pngi');
         this.load.image('share-on', 'Icons For Us(1).png');
         this.load.image('end', 'END.png');
     }
@@ -49,12 +50,18 @@
         //A future feature could be "Close or End Meeting after X Seconds"
         this.add.image(1185, 15, 'close');
         this.add.image(820, 630, 'end');
+        //Example code taked from a website that would create a grid and place the text field (breaks rest of program):
+        //this.formUtil=new FormUtil({scene:this,rows:11,cols:11})
+        //this.formUtil.showNumbers();
+        //this.formUtil.scaleToGameW("utext", .4);
+        //this.formUtil.placeElementsAt(60, 40, "utext");
         
         // Our Interactive elements that we should most likely try to implement tonight
         var cam = this.add.image(200, 630, 'cam-off');
         var mic = this.add.image(60, 630, 'mic-off');
         var share = this.add.image(450, 630, 'share-off');
         var text = this.add.text(920,590, 'Chat', { color: 'black', fontSize: '20px '});
+        
         
         cam.setInteractive();
         mic.setInteractive();
@@ -63,6 +70,8 @@
         cam.on('clicked', camHandler, this);
         mic.on('clicked', micHandler, this);
         share.on('clicked', shareHandler, this);
+        
+        
         
         // The below section is directly from a tutorial, and may need additional adaption. However while comment is being written it works
         
